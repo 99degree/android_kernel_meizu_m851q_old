@@ -1,5 +1,3 @@
-ifeq (,$(filter y, $(CONFIG_BOARD_BRAMBLE) $(CONFIG_BOARD_REDFIN)))
-
 ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY),y)
         dtbo-$(CONFIG_ARCH_KONA) += \
                 kona-cdp-overlay.dtbo \
@@ -227,6 +225,65 @@ dtb-$(CONFIG_ARCH_SCUBA) += scuba-rumi.dtb \
 	scuba-iot-idp-usbc-2gb.dtb
 endif
 
+ifeq ($(CONFIG_MACH_XIAOMI_SDM660),y)
+ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY),y)
+dtbo-$(CONFIG_MACH_XIAOMI_LAVENDER) += sdm660-mtp-lavender-overlay.dtbo
+sdm660-mtp-lavender-overlay.dtbo-base := sdm660-mtp-lavender.dtb
+else
+dtb-$(CONFIG_MACH_XIAOMI_LAVENDER) := sdm660-mtp-lavender.dtb
+dtb-$(CONFIG_MACH_XIAOMI_JASON) := sdm660-mtp-jason.dtb
+dtb-$(CONFIG_MACH_XIAOMI_TULIP) := sdm636-mtp-tulip.dtb
+dtb-$(CONFIG_MACH_XIAOMI_WAYNE) := sdm660-mtp-wayne.dtb sdm660-mtp-jasmine.dtb
+dtb-$(CONFIG_MACH_XIAOMI_WHYRED) := sdm636-mtp-whyred.dtb
+endif
+else
+ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY),y)
+dtbo-$(CONFIG_ARCH_SDM439) += sdm439-mtp-overlay.dtbo
+
+#dtbo-$(CONFIG_ARCH_SDM429) += sdm429-mtp-overlay.dtbo \
+	sdm429-cdp-overlay.dtbo \
+	sdm429-qrd-overlay.dtbo
+
+dtbo-$(CONFIG_ARCH_QM215) +=qm215-qrd-overlay.dtbo \
+	qcm2150-qrd-overlay.dtbo \
+	qm215-qrd-smb1360-overlay.dtbo
+sdm439-mtp-overlay.dtbo-base := sdm439.dtb \
+	sda439.dtb \
+	msm8937-interposer-sdm439.dtb
+
+#sdm429-mtp-overlay.dtbo-base := sdm429.dtb \
+	sda429.dtb \
+	msm8937-interposer-sdm429.dtb
+
+#sdm429-cdp-overlay.dtbo-base := sdm429.dtb \
+	sda429.dtb \
+	msm8937-interposer-sdm429.dtb
+
+#sdm429-qrd-overlay.dtbo-base := sdm429.dtb \
+	msm8937-interposer-sdm429.dtb
+
+qm215-qrd-overlay.dtbo-base := qm215.dtb
+qcm2150-qrd-overlay.dtbo-base := qcm2150.dtb
+qm215-qrd-smb1360-overlay.dtbo-base := qm215.dtb
+else
+dtb-$(CONFIG_ARCH_SDM439) += sdm439-mtp.dtb \
+	sdm439-cdp.dtb \
+	sdm439-qrd.dtb \
+	sda439-mtp.dtb \
+	sda439-cdp.dtb \
+	sdm439-external-codec-mtp.dtb \
+	sdm439-rcm.dtb
+dtb-$(CONFIG_ARCH_QM215) += qm215-qrd.dtb \
+	qcm2150-qrd.dtb \
+	qm215-qrd-smb1360.dtb
+
+#dtb-$(CONFIG_ARCH_SDM429) += sdm429-mtp.dtb \
+	sdm429-cdp.dtb \
+	sdm429-qrd.dtb \
+	sda429-mtp.dtb \
+	sda429-cdp.dtb
+endif
+
 ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY),y)
         dtbo-$(CONFIG_ARCH_SDM660) += \
                 sdm660-mtp-external-codec-overlay.dtbo \
@@ -241,23 +298,14 @@ ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY),y)
                 sda660-rcm-external-codec-overlay.dtbo
 
 sdm660-mtp-external-codec-overlay.dtbo-base := sdm660-pm660l.dtb
-
 sdm660-mtp-internal-codec-overlay.dtbo-base := sdm660-pm660l.dtb
-
 sdm660-cdp-external-codec-overlay.dtbo-base := sdm660-pm660l.dtb
-
 sdm660-cdp-internal-codec-overlay.dtbo-base := sdm660-pm660l.dtb
-
 sdm660-qrd-external-codec-overlay.dtbo-base := sdm660-pm660l.dtb
-
 sdm660-rcm-external-codec-overlay.dtbo-base := sdm660-pm660l.dtb
-
 sdm660-rcm-internal-codec-overlay.dtbo-base := sdm660-pm660l.dtb
-
 sda660-mtp-external-codec-overlay.dtbo-base := sda660-pm660l.dtb
-
 sda660-cdp-external-codec-overlay.dtbo-base := sda660-pm660l.dtb
-
 sda660-rcm-external-codec-overlay.dtbo-base := sda660-pm660l.dtb
 else
 dtb-$(CONFIG_ARCH_SDM660) += sdm660-sim.dtb \
@@ -288,56 +336,29 @@ sdm660-internal-codec-cdp.dtb \
         sdm660-pm660a-headset-jacktype-no-cdp.dtb \
         sdm660-pm660a-headset-jacktype-no-rcm.dtb \
         sdm660-usbc-audio-mtp.dtb \
-        sdm660-usbc-audio-rcm.dtb
+        sdm660-usbc-audio-rcm.dtb \
+        sdm636-cdp.dtb \
+        sdm636-mtp.dtb \
+        sdm636-qrd.dtb \
+        sdm636-rcm.dtb \
+        sdm636-headset-jacktype-no-cdp.dtb \
+        sdm636-headset-jacktype-no-rcm.dtb \
+        sdm636-internal-codec-cdp.dtb \
+        sdm636-internal-codec-mtp.dtb \
+        sdm636-internal-codec-pm660a-cdp.dtb \
+        sdm636-internal-codec-pm660a-mtp.dtb \
+        sdm636-internal-codec-pm660a-rcm.dtb \
+        sdm636-internal-codec-rcm.dtb \
+        sdm636-pm660a-headset-jacktype-no-cdp.dtb \
+        sdm636-pm660a-headset-jacktype-no-rcm.dtb \
+        sdm636-pm660a-cdp.dtb \
+        sdm636-pm660a-mtp.dtb \
+        sdm636-pm660a-qrd.dtb \
+        sdm636-pm660a-rcm.dtb \
+        sdm636-usbc-audio-mtp.dtb \
+        sdm636-usbc-audio-rcm.dtb
 endif
-
-ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY),y)
-dtbo-$(CONFIG_ARCH_SDM439) += sdm439-mtp-overlay.dtbo
-
-dtbo-$(CONFIG_ARCH_SDM429) += sdm429-mtp-overlay.dtbo \
-	sdm429-cdp-overlay.dtbo \
-	sdm429-qrd-overlay.dtbo
-
-dtbo-$(CONFIG_ARCH_QM215) +=qm215-qrd-overlay.dtbo \
-	qcm2150-qrd-overlay.dtbo \
-	qm215-qrd-smb1360-overlay.dtbo
-sdm439-mtp-overlay.dtbo-base := sdm439.dtb \
-	sda439.dtb \
-	msm8937-interposer-sdm439.dtb
-
-sdm429-mtp-overlay.dtbo-base := sdm429.dtb \
-	sda429.dtb \
-	msm8937-interposer-sdm429.dtb
-
-sdm429-cdp-overlay.dtbo-base := sdm429.dtb \
-	sda429.dtb \
-	msm8937-interposer-sdm429.dtb
-
-sdm429-qrd-overlay.dtbo-base := sdm429.dtb \
-	msm8937-interposer-sdm429.dtb
-
-qm215-qrd-overlay.dtbo-base := qm215.dtb
-qcm2150-qrd-overlay.dtbo-base := qcm2150.dtb
-qm215-qrd-smb1360-overlay.dtbo-base := qm215.dtb
-else
-dtb-$(CONFIG_ARCH_SDM439) += sdm439-mtp.dtb \
-	sdm439-cdp.dtb \
-	sdm439-qrd.dtb \
-	sda439-mtp.dtb \
-	sda439-cdp.dtb \
-	sdm439-external-codec-mtp.dtb \
-	sdm439-rcm.dtb
-dtb-$(CONFIG_ARCH_QM215) += qm215-qrd.dtb \
-	qcm2150-qrd.dtb \
-	qm215-qrd-smb1360.dtb
-
-dtb-$(CONFIG_ARCH_SDM429) += sdm429-mtp.dtb \
-	sdm429-cdp.dtb \
-	sdm429-qrd.dtb \
-	sda429-mtp.dtb \
-	sda429-cdp.dtb
 endif
-endif #CONFIG_BOARD_BRAMBLE CONFIG_BOARD_REDFIN
 
 always		:= $(dtb-y)
 subdir-y	:= $(dts-dirs)

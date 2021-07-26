@@ -57,7 +57,7 @@
 		qcom,initial-pwrlevel = <6>;
 
 		/* <HZ/12> */
-		qcom,idle-timeout = <80>;
+		qcom,idle-timeout = <64>;
 
 		qcom,highest-bank-bit = <14>;
 
@@ -74,6 +74,9 @@
 
 		clock-names = "core_clk", "iface_clk", "rbbmtimer_clk",
 			"mem_clk", "alt_mem_iface_clk", "rbcpr_clk";
+
+		/* To disable GPU wake up on touch event */
+		qcom,disable-wake-on-touch;
 
 		/* Bus Scale Settings */
 		qcom,gpubw-dev = <&gpubw>;
@@ -105,10 +108,6 @@
 		vddcx-supply = <&gdsc_gpu_cx>;
 		vdd-supply = <&gdsc_gpu_gx>;
 
-		/* Cx ipeak limit supprt */
-		qcom,gpu-cx-ipeak = <&cx_ipeak_lm 1>;
-		qcom,gpu-cx-ipeak-clk = <700000000>;
-
 		/* CPU latency parameter */
 		qcom,pm-qos-active-latency = <518>;
 		qcom,pm-qos-wakeup-latency = <518>;
@@ -127,6 +126,18 @@
 		qcom,ca-target-pwrlevel = <4>;
 
 		qcom,gpu-speed-bin = <0x41a0 0x1fe00000 21>;
+
+		/* Cx ipeak limit support */
+		qcom,gpu-cx-ipeak {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			compatible = "qcom,gpu-cx-ipeak";
+
+			qcom,gpu-cx-ipeak@0 {
+				qcom,gpu-cx-ipeak = <&cx_ipeak_lm 1>;
+				qcom,gpu-cx-ipeak-freq = <700000000>;
+			};
+		};
 
 		/* GPU Mempools */
 		qcom,gpu-mempools {
@@ -167,7 +178,7 @@
 
 				qcom,speed-bin = <0>;
 
-				qcom,initial-pwrlevel = <6>;
+				qcom,initial-pwrlevel = <7>;
 
 				/* TURBO */
 				qcom,gpu-pwrlevel@0 {
@@ -257,7 +268,7 @@
 
 				qcom,speed-bin = <157>;
 
-				qcom,initial-pwrlevel = <6>;
+				qcom,initial-pwrlevel = <7>;
 
 				/* TURBO */
 				qcom,gpu-pwrlevel@0 {
@@ -347,7 +358,7 @@
 
 				qcom,speed-bin = <146>;
 
-				qcom,initial-pwrlevel = <5>;
+				qcom,initial-pwrlevel = <6>;
 
 				/* TURBO */
 				qcom,gpu-pwrlevel@0 {
@@ -428,7 +439,7 @@
 
 				qcom,speed-bin = <135>;
 
-				qcom,initial-pwrlevel = <4>;
+				qcom,initial-pwrlevel = <5>;
 
 				/* NOM_L1 */
 				qcom,gpu-pwrlevel@0 {
@@ -500,7 +511,7 @@
 
 				qcom,speed-bin = <78>;
 
-				qcom,initial-pwrlevel = <1>;
+				qcom,initial-pwrlevel = <2>;
 
 				/* SVS */
 				qcom,gpu-pwrlevel@0 {
@@ -545,7 +556,7 @@
 
 				qcom,speed-bin = <90>;
 
-				qcom,initial-pwrlevel = <2>;
+				qcom,initial-pwrlevel = <3>;
 
 				/* SVS_L1 */
 				qcom,gpu-pwrlevel@0 {
@@ -599,7 +610,7 @@
 
 				qcom,speed-bin = <122>;
 
-				qcom,initial-pwrlevel = <3>;
+				qcom,initial-pwrlevel = <4>;
 
 				/* NOM */
 				qcom,gpu-pwrlevel@0 {
