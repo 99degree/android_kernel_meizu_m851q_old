@@ -68,7 +68,7 @@
 #define SEC_TS_DRV_VERSION 								"g_6ft0.v00"
 
 #define SEC_TS_FW_MAX_BURSTSIZE 					256
-//#define CONFIG_FW_UPDATE_ON_PROBE
+#define CONFIG_FW_UPDATE_ON_PROBE
 
 //#define POR_AFTER_I2C_RETRY
 /*#define SEC_TS_SUPPORT_SEC_SWIPE */

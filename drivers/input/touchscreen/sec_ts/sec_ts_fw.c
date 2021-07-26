@@ -40,11 +40,9 @@ extern unsigned int ctp_fw_version_2;
 static u8 sec_ts_fw_data[] = {
 	#include "s6d6ft0_v1.10_20170918.i"
 };
-#else
-static u8 sec_ts_fw_data[8] = { 0 };
-#endif
 
 u8 *sec_get_fwdata(void) { return sec_ts_fw_data; }
+#endif
 
 int sec_ts_sw_reset(struct sec_ts_data *ts) {
 	int ret;
@@ -109,7 +107,6 @@ int sec_ts_check_firmware_version(struct sec_ts_data *ts, const u8 *fw_info) {
 	ts->plat_data->img_version_of_ic[2] = fw_ver[2];
 	ts->plat_data->img_version_of_ic[3] = fw_ver[3];
 
-#ifdef CONFIG_FW_UPDATE_ON_PROBE
 	ts->plat_data->img_version_of_bin[0] = (fw_hd->version && 0xFF);
 	ts->plat_data->img_version_of_bin[1] = (fw_hd->version >> 8 && 0xFF);
 	ts->plat_data->img_version_of_bin[2] = (fw_hd->version >> 16 && 0xFF);
@@ -137,7 +134,6 @@ int sec_ts_check_firmware_version(struct sec_ts_data *ts, const u8 *fw_info) {
 						 (((fw_hd->version >> 24) & 0xff) > fw_ver[3])) {
 		return 1;
 	}
-#endif
 
 	return 0;
 }
